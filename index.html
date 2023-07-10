@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <img class="newP2" id="newP"src="" alt="your photo">
+        <input id="name"type="text">
+     <label for="upload">photo</label>
+     <label for="name">name</label>
+        <input type="file"  accept="image/jpeg, image/png, image/jpg" id="uplaod">
+    
+        <button>button</button>
+
+    </main>
+    <script>
+        console.log("hello")
+        let array=[]
+        let main= document.querySelector("main")
+        let button=document.querySelector("button")
+        
+       
+        button.addEventListener("click",()=>{
+            let inputImg=document.getElementById("uplaod")
+        inputImg.onchange= ()=>{
+        img.src= URL.createObjectURL(inputImg.files[0])
+
+         }
+            let img1=document.querySelector(".newP2")
+            let img=document.getElementById("newP")
+            let inputName= document.getElementById("name").value
+            
+            const recipe={
+            inputName,
+            img1,
+            img,
+                
+               
+            }
+            array.push(recipe)
+            display()
+        })
+        console.log(array)
+       function display(){
+        let html=""
+            array.forEach(element => {
+                html+=`${element.name} <img src="${element.img1}"">`
+            });
+            
+            main.innerHTML=html
+        }
+
+
+    </script>
+</body>
+</html>
