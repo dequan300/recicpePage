@@ -9,53 +9,49 @@
 </head>
 <body>
     <main>
-        <img class="newP2" id="newP"src="" alt="your photo">
-        <input id="name"type="text">
-     <label for="upload">photo</label>
-     <label for="name">name</label>
-        <input type="file"  accept="image/jpeg, image/png, image/jpg" id="uplaod">
-    
-        <button>button</button>
 
+     <label for="upload">photo</label>
+        <input type="file"  accept="image/jpeg, image/png, image/jpg" id="fileEl">
+        <input type="text"  id="name">
+    
     </main>
     <script>
-        console.log("hello")
-        let array=[]
-        let main= document.querySelector("main")
-        let button=document.querySelector("button")
-        
        
-        button.addEventListener("click",()=>{
-            let inputImg=document.getElementById("uplaod")
-        inputImg.onchange= ()=>{
-        img.src= URL.createObjectURL(inputImg.files[0])
 
-         }
-            let img1=document.querySelector(".newP2")
-            let img=document.getElementById("newP")
-            let inputName= document.getElementById("name").value
+            let nameV=document.querySelector('#name').value
             
-            const recipe={
-            inputName,
-            img1,
-            img,
-                
-               
+
+        class Recipie{
+            constructor(name) {
+            this.name = name;
             }
-            array.push(recipe)
-            display()
-        })
-        console.log(array)
-       function display(){
-        let html=""
-            array.forEach(element => {
-                html+=`${element.name} <img src="${element.img1}"">`
-            });
-            
-            main.innerHTML=html
+
+                img(){
+                let fileEl= document.getElementById("fileEl")
+             fileEl.addEventListener('change',()=>{
+             const fr =new FileReader()
+                fr.readAsDataURL(fileEl.files[0])
+
+                fr.addEventListener(`load`,()=>{
+                const url=fr.result
+                let img= new Image();
+                img.src=url
+                document.body.appendChild(img)
+            })
+             })
+            }
+            getName(){
+                return this.newName()
+            }
+            newName(){
+                return this.name
+            }
         }
+        let recipie=new Recipie(nameV)
+        console.log(recipie.img())
 
 
+    
     </script>
 </body>
 </html>
