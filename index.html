@@ -16,20 +16,18 @@
         <button type="submit">Submit</button>
         </form>
      
-    
     </main>
     <script>
        
 
             let form= document.querySelector("#form")
             let button=document.querySelector("button")
-            let nameV=document.querySelector('#name').value
             
 
         
             let array=[]
             
-
+            let dataBase=JSON.parse(localStorage.getItem("data")) || []
                 
                 let fileEl= document.getElementById("fileEl")
              fileEl.addEventListener('change',()=>{
@@ -39,6 +37,7 @@
                 const url=fr.result
                 
                 array.push(url)
+
                 
             })
              })
@@ -49,13 +48,32 @@
        
         button.addEventListener("click",(e)=>{
             e.preventDefault()
+            let nameV=document.querySelector('#name').value
             let img= new Image();
-                img.src=array[0]
-                document.body.appendChild(img)
-        
-
+             let image=img.src=array[0]
+                let recipe={
+                    nameV,
+                    image
+                }
+                dataBase.push(recipe)
+                localStorage.setItem("data",JSON.stringify(dataBase))
+                    display()
             
         })
+        function display(){
+
+            for (const recipe of dataBase) {
+                let img= new Image()
+                
+                document.body.innerHTML+=`${recipe.nameV}
+            <img src="${recipe.image}" alt="">
+                `
+            }
+        }
+        console.log(dataBase)
+
+        
+
 
     
     </script>
