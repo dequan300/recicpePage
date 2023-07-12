@@ -9,47 +9,53 @@
 </head>
 <body>
     <main>
-
-     <label for="upload">photo</label>
+        <form id="form">
+        <label for="fileEl">photo</label>
         <input type="file"  accept="image/jpeg, image/png, image/jpg" id="fileEl">
-        <input type="text"  id="name">
+        <input type="text" value="dequan" id="name">
+        <button type="submit">Submit</button>
+        </form>
+     
     
     </main>
     <script>
        
 
+            let form= document.querySelector("#form")
+            let button=document.querySelector("button")
             let nameV=document.querySelector('#name').value
             
 
-        class Recipie{
-            constructor(name) {
-            this.name = name;
-            }
+        
+            let array=[]
+            
 
-                img(){
+                
                 let fileEl= document.getElementById("fileEl")
              fileEl.addEventListener('change',()=>{
              const fr =new FileReader()
-                fr.readAsDataURL(fileEl.files[0])
-
+              fr.readAsDataURL(fileEl.files[0])
                 fr.addEventListener(`load`,()=>{
                 const url=fr.result
-                let img= new Image();
-                img.src=url
-                document.body.appendChild(img)
+                
+                array.push(url)
+                
             })
              })
-            }
-            getName(){
-                return this.newName()
-            }
-            newName(){
-                return this.name
-            }
-        }
-        let recipie=new Recipie(nameV)
-        console.log(recipie.img())
 
+             console.log(array)
+            
+    
+       
+        button.addEventListener("click",(e)=>{
+            e.preventDefault()
+            let img= new Image();
+                img.src=array[0]
+                document.body.appendChild(img)
+        
+
+            
+        })
 
     
     </script>
