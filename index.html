@@ -27,50 +27,63 @@
         
             let array=[]
             
-            let dataBase=JSON.parse(localStorage.getItem("data")) || []
+            let recipeDate=JSON.parse(localStorage.getItem("data")) || []
                 
-                let fileEl= document.getElementById("fileEl")
-             fileEl.addEventListener('change',()=>{
-             const fr =new FileReader()
-              fr.readAsDataURL(fileEl.files[0])
-                fr.addEventListener(`load`,()=>{
-                const url=fr.result
-                
-                array.push(url)
+                let input= document.getElementById("fileEl")
+             input.addEventListener('change',()=>{
+                const files= input.files
+                for (let index = 0; index < files.length; index++) {
+                    let reader = new FileReader()
+                    reader.addEventListener('load',(e)=>{
+                        const dataUrl= e.target.result
+                        let nameV=document.querySelector("#name").value
+                        let recipe={
+                         nameV,
+                        image:dataUrl
+                        }
+                        recipeDate.push(recipe)
+                        localStorage.setItem("data",JSON.stringify(recipeDate))
+                        console.log(recipeDate)
+                    })  
+                        reader.readAsDataURL(files[index]);
 
-                
-            })
-             })
+                    }
 
-             console.log(array)
+                        form.reset()
+                        display()
+                     })
+
+            
             
     
        
-        button.addEventListener("click",(e)=>{
-            e.preventDefault()
-            let nameV=document.querySelector('#name').value
-            let img= new Image();
-             let image=img.src=array[0]
-                let recipe={
-                    nameV,
-                    image
-                }
-                dataBase.push(recipe)
-                localStorage.setItem("data",JSON.stringify(dataBase))
-                    display()
-            
-        })
-        function display(){
+        button.addEventListener("click",display())
 
-            for (const recipe of dataBase) {
-                let img= new Image()
-                
-                document.body.innerHTML+=`${recipe.nameV}
-            <img src="${recipe.image}" alt="">
-                `
-            }
-        }
-        console.log(dataBase)
+
+        function display() {
+  const container = document.createElement('div');
+  container.id = 'imageContainer';
+
+  for (const recipe of recipeDate) {
+    const recipeElement = document.createElement('div');
+    const nameElement = document.createElement('p');
+    nameElement.textContent = recipe.nameV;
+    const imageElement = document.createElement('img');
+    imageElement.src = recipe.image;
+
+    recipeElement.appendChild(nameElement);
+    recipeElement.appendChild(imageElement);
+    container.appendChild(recipeElement);
+  }
+
+  const existingContainer = document.getElementById('imageContainer');
+  if (existingContainer) {
+    existingContainer.remove();
+  }
+
+  document.body.appendChild(container);
+}
+
 
         
 
