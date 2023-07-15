@@ -4,7 +4,7 @@ let button=document.querySelector("button")
 
 
 
-let array=[]
+let queArray=[]
 
 let recipeDate=JSON.parse(localStorage.getItem("data")) || []
    // checking if there is any thing in localstorge if it is null than store in array 
@@ -76,8 +76,8 @@ existingContainer.remove();
 // to avoid that if the first interation has the same id at the second interation remove the old one 
 // the old would be removed first because the array starts at zero witch you will find the first container whcih the the condition wil check 
 //the first run through will be falsy then the secound run through will be true 
-
-document.body.appendChild(container);
+const main= document.querySelector("main")
+main.append(container);
 }
 
 
